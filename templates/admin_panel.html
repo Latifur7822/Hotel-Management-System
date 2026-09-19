@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LAM International - Admin Control Panel</title>
+    <style>
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+        }
+        body { 
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); 
+            min-height: 100vh; 
+            padding: 40px 20px; 
+            color: #333;
+        }
+        .admin-container { 
+            max-width: 750px; 
+            margin: 0 auto; 
+            background: rgba(255, 255, 255, 0.95); 
+            padding: 40px; 
+            border-radius: 16px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2); 
+        }
+        header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            border-bottom: 2px solid #eef2f3; 
+            padding-bottom: 20px; 
+            margin-bottom: 30px; 
+        }
+        header h2 { 
+            color: #1e3c72; 
+            font-size: 26px; 
+            font-weight: 700;
+        }
+        .logout-btn { 
+            background: #e74c3c; 
+            color: white; 
+            padding: 8px 18px; 
+            border-radius: 20px; 
+            text-decoration: none; 
+            font-weight: bold; 
+            font-size: 14px;
+            transition: 0.3s; 
+        }
+        .logout-btn:hover { 
+            background: #c0392b; 
+        }
+        .section-box {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border: 1px solid #eef2f3;
+        }
+        h3 { 
+            color: #2c3e50; 
+            margin-bottom: 15px; 
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .form-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        input { 
+            flex: 1;
+            min-width: 200px;
+            padding: 12px 15px; 
+            border: 1px solid #cccccc; 
+            border-radius: 8px; 
+            outline: none; 
+            font-size: 14px;
+            transition: 0.3s;
+        }
+        input:focus {
+            border-color: #1e3c72;
+            box-shadow: 0 0 5px rgba(30, 60, 114, 0.2);
+        }
+        button { 
+            background: #1e3c72; 
+            color: white; 
+            font-weight: 600; 
+            border: none; 
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer; 
+            transition: 0.3s; 
+        }
+        button:hover { 
+            background: #122546; 
+            transform: translateY(-1px);
+        }
+        ul { 
+            list-style: none; 
+            padding: 0;
+        }
+        li { 
+            background: white; 
+            padding: 15px; 
+            margin-bottom: 8px; 
+            border-radius: 8px; 
+            border-left: 5px solid #1e3c72; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+        .role-badge {
+            background: #eef2f3;
+            color: #555;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .footer-nav { 
+            display: flex; 
+            justify-content: flex-start; 
+            margin-top: 20px; 
+        }
+        .footer-nav a { 
+            color: #1e3c72; 
+            text-decoration: none; 
+            font-weight: 600;
+            font-size: 15px;
+        }
+        .footer-nav a:hover { 
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="admin-container">
+        <header>
+            <h2>👑 LAM International Admin Control</h2>
+            <a href="/logout" class="logout-btn">Logout Portal 🚪</a>
+        </header>
+        
+        <!-- 📝 স্টাফ অ্যাকাউন্ট তৈরির ফর্ম -->
+        <div class="section-box">
+            <h3>Create Employee / Staff Account</h3>
+            <form action="/admin-panel" method="POST" class="form-group">
+                <input type="text" name="new_username" placeholder="Enter Employee Username" required>
+                <input type="password" name="new_password" placeholder="Assign Temporary Password" required>
+                <button type="submit">Create Account</button>
+            </form>
+        </div>
+
+        <!-- 📋 এমপ্লয়ি লিস্ট সেকশন -->
+        <div class="section-box" style="margin-bottom: 20px;">
+            <h3>Registered Hotel Employees</h3>
+            <ul>
+                {% for emp in employees %}
+                <li>
+                    <span>👨‍💼 Username: <strong>{{ emp[0] }}</strong></span>
+                    <span class="role-badge">Hotel Employee</span>
+                </li>
+                {% else %}
+                <p style="color:#7f8c8d; font-size: 14px;">No employees registered yet. Use the form above to add staff.</p>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- 🔗 ড্যাশবোর্ড ওভারভিউ লিংক -->
+        <div class="footer-nav">
+            <a href="/dashboard">📊 Go to Global Bookings Overview →</a>
+        </div>
+    </div>
+
+</body>
+</html>

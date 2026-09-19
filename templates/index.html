@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to LAM International</title>
+    <style>
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+        }
+        body { 
+            display: flex; 
+            height: 100vh; 
+            background: #f5f6fa; 
+            overflow: hidden; 
+        }
+        
+        /* 🌌 বামপাশের ফুল স্ক্রিন হোটেল ডিটেইলস (হোটেল শোকেস) */
+        .hotel-showcase {
+            flex: 1;
+            background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('https://unsplash.com') no-repeat center center/cover;
+            color: white;
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .hotel-showcase h1 { 
+            font-size: 55px; 
+            margin-bottom: 20px; 
+            font-weight: 700; 
+            letter-spacing: 1px;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        .hotel-showcase p { 
+            font-size: 18px; 
+            max-width: 650px; 
+            line-height: 1.6; 
+            color: #dfe6e9; 
+            text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+        .features { 
+            margin-top: 40px; 
+            display: flex; 
+            gap: 20px; 
+            flex-wrap: wrap;
+        }
+        .feature-badge { 
+            background: rgba(255,255,255,0.2); 
+            padding: 12px 24px; 
+            border-radius: 30px; 
+            font-size: 14px; 
+            font-weight: 500;
+            backdrop-filter: blur(8px); 
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* 🔒 ডানপাশের স্লিক এবং আধুনিক অথরাইজেশন সাইডবার */
+        .auth-sidebar {
+            width: 420px;
+            background: white;
+            box-shadow: -10px 0 30px rgba(0,0,0,0.05);
+            padding: 50px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            z-index: 10;
+        }
+        .auth-sidebar h2 { 
+            font-size: 28px; 
+            color: #2c3e50; 
+            margin-bottom: 8px; 
+            text-align: center; 
+            font-weight: 600;
+        }
+        .auth-sidebar .subtitle {
+            font-size: 14px;
+            color: #7f8c8d;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        input, select, button { 
+            width: 100%; 
+            padding: 14px 18px; 
+            margin: 10px 0; 
+            border: 1px solid #dfe6e9; 
+            border-radius: 8px; 
+            outline: none; 
+            font-size: 15px; 
+            transition: 0.3s;
+        }
+        input:focus { 
+            border-color: #0072ff; 
+            box-shadow: 0 0 8px rgba(0, 114, 255, 0.15);
+        }
+        button { 
+            background: linear-gradient(135deg, #0072ff 0%, #0056c6 100%); 
+            color: white; 
+            border: none; 
+            font-weight: 600; 
+            cursor: pointer; 
+            margin-top: 15px;
+            box-shadow: 0 4px 15px rgba(0, 114, 255, 0.3);
+        }
+        button:hover { 
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 114, 255, 0.4);
+        }
+        button:active {
+            transform: translateY(0);
+        }
+        .toggle-link { 
+            text-align: center; 
+            font-size: 14px; 
+            color: #7f8c8d; 
+            margin-top: 20px; 
+            cursor: pointer; 
+        }
+        .toggle-link span { 
+            color: #0072ff; 
+            font-weight: 600; 
+        }
+        .toggle-link span:hover {
+            text-decoration: underline;
+        }
+        .staff-portal-btn { 
+            text-align: center; 
+            margin-top: 40px; 
+            font-size: 13px; 
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+        .staff-portal-btn a { 
+            color: #34495e; 
+            text-decoration: none; 
+            font-weight: 500; 
+            opacity: 0.7; 
+            transition: 0.2s;
+        }
+        .staff-portal-btn a:hover { 
+            opacity: 1; 
+            color: #0072ff;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 🌌 বামপাশ: হোটেল ব্র্যান্ডিং ও শোকেস -->
+    <div class="hotel-showcase">
+        <h1>LAM International</h1>
+        <p>Experience world-class luxury and unparalleled comfort at the heart of the city. Enjoy our premium royal suites, crystal infinity pools, 5-star fine dining gastronomy, and elite 24/7 personalized concierge services customized just for your unforgettable stay.</p>
+        
+        <div class="features">
+            <div class="feature-badge">🏊 Free Infinity Pool</div>
+            <div class="feature-badge">🏋️ Ultra Gym & Spa</div>
+            <div class="feature-badge">🍽️ 5-Star Fine Dining</div>
+        </div>
+    </div>
+
+    <!-- 🔒 ডানপাশ: গেস্ট সাইন-ইন/সাইন-আপ সাইডবার পোর্টাল -->
+    <div class="auth-sidebar">
+        
+        <!-- 🔐 Sign In Section -->
+        <div id="signin-box">
+            <h2>Guest Sign In</h2>
+            <p class="subtitle">Log in to book your luxury stay instantly</p>
+            <form action="/customer-auth" method="POST">
+                <input type="hidden" name="action" value="signin">
+                <input type="email" name="email" placeholder="Your Email Address" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <button type="submit">Sign In</button>
+            </form>
+            <div class="toggle-link" onclick="toggleAuth()">Don't have an account? <span>Sign Up</span></div>
+        </div>
+
+        <!-- 📝 Sign Up Section (শুরুতে হাইড বা লুকানো থাকবে) -->
+        <div id="signup-box" style="display: none;">
+            <h2>Create Account</h2>
+            <p class="subtitle">Join us to experience VIP guest privileges</p>
+            <form action="/customer-auth" method="POST">
+                <input type="hidden" name="action" value="signup">
+                <input type="text" name="fullname" placeholder="Your Full Name" required>
+                <input type="email" name="email" placeholder="Your Email Address" required>
+                <input type="password" name="password" placeholder="Create Strong Password" required>
+                <button type="submit">Register & Login</button>
+            </form>
+            <div class="toggle-link" onclick="toggleAuth()">Already have an account? <span>Sign In</span></div>
+        </div>
+
+        <!-- 💼 স্টাফ পোর্টাল লিংক -->
+        <div class="staff-portal-btn">
+            <a href="/staff-login">Go to Staff / Management Portal →</a>
+        </div>
+    </div>
+
+    <!-- ⚙️ সাইন-ইন এবং সাইন-আপ ফর্ম অদলবদল করার স্ক্রিপ্ট -->
+    <script>
+        function toggleAuth() {
+            var signinBox = document.getElementById('signin-box');
+            var signupBox = document.getElementById('signup-box');
+            if(signinBox.style.display === 'none') {
+                signinBox.style.display = 'block';
+                signupBox.style.display = 'none';
+            } else {
+                signinBox.style.display = 'none';
+                signupBox.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>

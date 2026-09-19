@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LAM International - Enterprise Dashboard</title>
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif; }
+        body { display:flex; background:#0f172a; color:#f8fafc; min-height:100vh; }
+        .sidebar { width:260px; background:#1e293b; padding:25px 20px; display:flex; flex-direction:column; border-right:1px solid #334155; }
+        .logo-section { display:flex; align-items:center; gap:10px; margin-bottom:35px; font-size:20px; font-weight:700; color:#38bdf8; }
+        .user-profile-box { background:#0f172a; padding:15px; border-radius:12px; margin-bottom:30px; border:1px solid #334155; }
+        .user-profile-box p { font-size:14px; color:#94a3b8; }
+        .user-profile-box strong { color:#f8fafc; font-size:16px; }
+        .role-tag { display:inline-block; background:#0284c7; color:white; font-size:11px; padding:2px 8px; border-radius:20px; margin-top:5px; font-weight:600; }
+        .menu-list { list-style:none; display:flex; flex-direction:column; gap:10px; }
+        .menu-item { padding:12px 15px; border-radius:8px; color:#cbd5e1; text-decoration:none; display:flex; align-items:center; gap:12px; font-size:15px; cursor:pointer; transition:.2s; }
+        .menu-item:hover, .menu-item.active { background:#334155; color:#38bdf8; }
+        .logout-btn { margin-top:auto; background:#ef4444; color:white; text-align:center; font-weight:600; }
+        .logout-btn:hover { background:#dc2626; color:white; }
+        .main-content { flex:1; padding:40px; overflow-y:auto; }
+        header { display:flex; justify-content:space-between; align-items:center; margin-bottom:35px; gap:20px; }
+        header h1 { font-size:28px; font-weight:600; }
+        .stats-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:20px; margin-bottom:35px; }
+        .stat-card { padding:20px; border-radius:12px; display:flex; flex-direction:column; justify-content:center; min-height:110px; box-shadow:0 4px 6px -1px rgba(0,0,0,.1); }
+        .stat-card h3 { font-size:14px; font-weight:500; color:rgba(255,255,255,.7); margin-bottom:5px; }
+        .stat-card .number { font-size:32px; font-weight:700; }
+        .card-blue { background:#0284c7; } .card-green { background:#16a34a; } .card-purple { background:#7c3aed; }
+        .dashboard-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(400px,1fr)); gap:30px; }
+        .data-box { background:#1e293b; padding:25px; border-radius:12px; border:1px solid #334155; overflow:auto; }
+        .data-box h2 { font-size:18px; font-weight:600; margin-bottom:20px; border-bottom:1px solid #334155; padding-bottom:10px; color:#38bdf8; }
+        .staff-form input,.staff-form select { width:100%; padding:12px; margin-bottom:15px; background:#0f172a; border:1px solid #334155; border-radius:8px; color:white; outline:none; }
+        .staff-form button { width:100%; padding:12px; background:#0ea5e9; border:none; border-radius:8px; color:white; font-weight:600; cursor:pointer; }
+        .staff-form button:hover { background:#0284c7; }
+        .custom-table { width:100%; border-collapse:collapse; text-align:left; margin-top:10px; font-size:14px; min-width:760px; }
+        .custom-table th { padding:12px; background:#334155; color:#94a3b8; font-weight:600; }
+        .custom-table td { padding:12px; border-bottom:1px solid #334155; color:#cbd5e1; }
+        .badge { padding:3px 10px; border-radius:12px; font-size:11px; font-weight:600; display:inline-block; }
+        .badge-paid { background:rgba(22,163,74,.2); color:#4ade80; } .badge-unpaid { background:rgba(239,68,68,.2); color:#f87171; }
+        .badge-active { background:rgba(14,165,233,.2); color:#38bdf8; } .badge-term { background:rgba(239,68,68,.2); color:#f87171; }
+        .badge-cancel { background:rgba(249,115,22,.2); color:#fb923c; }
+        .action-btn { background:#ef4444; border:none; color:white; padding:5px 10px; border-radius:6px; font-size:12px; cursor:pointer; font-weight:600; }
+        .action-btn:hover { background:#dc2626; }
+        .staff-table { width:100%; border-collapse:collapse; font-size:14px; min-width:560px; }
+        .staff-table th,.staff-table td { padding:10px; border-bottom:1px solid #334155; text-align:left; }
+        .staff-table th { color:#94a3b8; background:#334155; }
+        @media (max-width:800px) { body{display:block}.sidebar{width:100%;}.main-content{padding:20px}.dashboard-grid{grid-template-columns:1fr}.custom-table,.staff-table{min-width:650px} header{display:block} }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo-section">🏢 LAM International</div>
+        <div class="user-profile-box">
+            <p>Welcome back,</p>
+            <strong>{{ session['staff_user'] }}</strong><br>
+            <span class="role-tag">{{ session['staff_role'] }} Portal</span>
+        </div>
+        <ul class="menu-list">
+            <a class="menu-item active" href="/dashboard">📊 Dashboard</a>
+            <a class="menu-item" href="/rooms">🛌 Rooms Management</a>
+            <a class="menu-item" href="/guests">👥 Guest Registry</a>
+            <a class="menu-item" href="/salary">💰 Salary Management</a>
+            <a class="menu-item logout-btn" href="/logout">Logout 🚪</a>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <header>
+            <h1>LAM Control Center</h1>
+            <p style="color:#94a3b8;">Real-time Hotel Operations Analytics</p>
+        </header>
+
+        <div class="stats-grid">
+            <div class="stat-card card-blue"><h3>Active Room Bookings</h3><div class="number">{{ active_count }}</div></div>
+            <div class="stat-card card-green"><h3>Total Active Staff</h3><div class="number">{{ emp_count }}</div></div>
+            <div class="stat-card card-purple"><h3>Paid Payroll</h3><div class="number">${{ total_payroll }}</div></div>
+        </div>
+
+        <div class="dashboard-grid">
+            <div class="data-box" style="grid-column:span 2;">
+                <h2>Recent Room Bookings & Actions</h2>
+                <table class="custom-table">
+                    <thead><tr><th>Guest Name</th><th>Room Type</th><th>Room No.</th><th>Nights</th><th>Payment</th><th>Status</th><th>Actions</th></tr></thead>
+                    <tbody>
+                    {% for booking in bookings %}
+                        <tr>
+                            <td><strong>{{ booking['guest_name'] }}</strong></td>
+                            <td>{{ booking['room_type'] }}</td>
+                            <td><span style="color:#38bdf8;">{{ booking['room_number'] }}</span></td>
+                            <td>{{ booking['nights'] }}</td>
+                            <td><span class="badge {% if booking['payment_status']=='Paid' %}badge-paid{% else %}badge-unpaid{% endif %}">{{ booking['payment_status'] }}</span></td>
+                            <td><span class="badge {% if booking['status']=='Confirmed' %}badge-active{% else %}badge-cancel{% endif %}">{{ booking['status'] }}</span></td>
+                            <td>
+                                {% if booking['status']=='Confirmed' %}
+                                <form method="POST" style="display:inline;"><input type="hidden" name="cancel_booking_id" value="{{ booking['id'] }}"><button type="submit" class="action-btn">Cancel</button></form>
+                                {% else %}<span style="color:#64748b;font-size:12px;">None</span>{% endif %}
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr><td colspan="7" style="text-align:center;color:#94a3b8;">No bookings recorded in the system yet.</td></tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            {% if session['staff_role'] in ['MD','admin'] %}
+            <div class="data-box">
+                <h2>Recruit New Hotel Staff</h2>
+                <form method="POST" class="staff-form">
+                    <input type="hidden" name="action_type" value="create_staff">
+                    <label style="font-size:12px;color:#94a3b8;display:block;margin-bottom:5px;">Select Staff Role</label>
+                    <select name="role" required>
+                        <option value="employee">👨‍💼 Hotel Employee</option>
+                        {% if session['staff_role']=='MD' %}<option value="admin">👑 Hotel Admin</option>{% endif %}
+                    </select>
+                    <input type="text" name="username" placeholder="Create Username" required>
+                    <input type="password" name="password" placeholder="Create Secure Password" required>
+                    <button type="submit">Appoint & Register Staff</button>
+                </form>
+            </div>
+            {% endif %}
+
+            <div class="data-box" style="grid-column:span 2;">
+                <h2>Staff Accounts</h2>
+                <table class="staff-table">
+                    <thead><tr><th>Username</th><th>Role</th><th>Status</th><th>Action</th></tr></thead>
+                    <tbody>
+                    {% for staff in staffs %}
+                        <tr>
+                            <td>{{ staff['username'] }}</td><td>{{ staff['role'] }}</td>
+                            <td><span class="badge {% if staff['status']=='Active' %}badge-active{% else %}badge-term{% endif %}">{{ staff['status'] }}</span></td>
+                            <td>
+                                {% if staff['status']=='Active' %}
+                                <form method="POST"><input type="hidden" name="terminate_id" value="{{ staff['id'] }}"><button class="action-btn" type="submit">Terminate</button></form>
+                                {% else %}<span style="color:#64748b;font-size:12px;">Terminated</span>{% endif %}
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr><td colspan="4" style="text-align:center;color:#94a3b8;">No staff accounts found.</td></tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

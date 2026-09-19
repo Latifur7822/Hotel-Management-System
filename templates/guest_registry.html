@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LAM International - Guest Registry</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { display: flex; background: #0f172a; color: #f8fafc; min-height: 100vh; }
+        .sidebar { width: 260px; background: #1e293b; padding: 25px 20px; display: flex; flex-direction: column; border-right: 1px solid #334155; }
+        .menu-list { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-top: 30px;}
+        .menu-item { padding: 12px 15px; border-radius: 8px; color: #cbd5e1; text-decoration: none; display: flex; align-items: center; gap: 12px; font-size: 15px; }
+        .menu-item:hover, .menu-item.active { background: #334155; color: #38bdf8; }
+        .main-content { flex: 1; padding: 40px; }
+        .box { background: #1e293b; padding: 25px; border-radius: 12px; border: 1px solid #334155; margin-top: 30px;}
+        h2 { color: #38bdf8; margin-bottom: 20px; font-size: 18px; font-weight: 600;}
+        table { width: 100%; border-collapse: collapse; font-size: 14px; }
+        th, td { padding: 12px; border-bottom: 1px solid #334155; text-align: left; }
+        th { color: #94a3b8; background: #334155;}
+        td { color: #cbd5e1; }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div style="font-size: 20px; font-weight: 700; color: #38bdf8;">🏢 LAM International</div>
+        <ul class="menu-list">
+            <a class="menu-item" href="/dashboard">📊 Dashboard</a>
+            <a class="menu-item" href="/rooms">🛌 Rooms Management</a>
+            <a class="menu-item active" href="/guests">👥 Guest Registry</a>
+            <a class="menu-item" style="background:#ef4444; color:white; margin-top: 30px; text-align:center; font-weight:600;" href="/logout">Logout 🚪</a>
+        </ul>
+    </div>
+    <div class="main-content">
+        <h1>👥 Active Guest Registry</h1>
+        <div class="box">
+            <h2>Live Verified Guest Database Log</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Guest Full Name</th>
+                        <th>Assigned Room Type</th>
+                        <th>Allocated Room Number</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for guest in guests %}
+                    <tr>
+                        <!-- ⚙️ ইনডেক্সিং সঠিক করা হয়েছে -->
+                        <td><strong>{{ guest['guest_name'] }}</strong></td>
+                        <td>{{ guest['room_type'] }}</td>
+                        <td style="color:#38bdf8; font-weight:600;">{{ guest['room_number'] }}</td>
+                    </tr>
+                    {% else %}
+                    <tr><td colspan="3" style="text-align:center; color:#94a3b8;">No active checked-in hotel guests found in current database records.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
